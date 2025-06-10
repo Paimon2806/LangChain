@@ -39,7 +39,7 @@ try:
 
 
 	print("\n-- LLM Response ---")
-	print(response.content)
+	print(f"{response.content}")
 
 except Exception as e:
 	print("Error")
