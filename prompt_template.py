@@ -26,7 +26,7 @@ prompt_template=ChatPromptTemplate(
 print("Prompt Defined")
 
 
-message_blockchain = prompt_template.format_messages(concept="langchain framework")
+message_blockchain = prompt_template.format_messages(concept="blockchain")
 message_quantum = prompt_template.format_messages(concept="Quantum computer")
 print("prompts are formatted for blockchain and quantum computer")
 
@@ -36,9 +36,9 @@ response_blockchain = llm.invoke(message_blockchain)
 print(f"{response_blockchain.content}")
 
 
-# print("LLM invoking for quantum computer")
-# response_quantum = llm.invoke(message_quantum)
-# print(f"{response_quantum.content}")
+print("LLM invoking for quantum computer")
+response_quantum = llm.invoke(message_quantum)
+print(f"{response_quantum.content}")
 
 
 
