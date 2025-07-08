@@ -1,7 +1,7 @@
 import os
 from langchain_openai import AzureChatOpenAI
-from langchain_core.messages import SystemMessage , HumanMessage
 from langchain_core.prompts import ChatPromptTemplate 
+from langchain_core.output_parsers import StrOutputParser
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -39,6 +39,7 @@ print(f"{response_blockchain.content}")
 print("LLM invoking for quantum computer")
 response_quantum = llm.invoke(message_quantum)
 print(f"{response_quantum.content}")
+ 
 
 
 
