@@ -4,7 +4,8 @@ from langchain_openai import AzureChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains import LLMChain
-from langchain.memory import ConversationBufferMemory
+from langchain.memory import ConversationSummaryMemory
+
 
 load_dotenv()
 
@@ -18,7 +19,11 @@ llm = AzureChatOpenAI (
 	)
 print("llm defined")
 
-memory = ConversationBufferMemory(memory_key="history",return_messages=True)
+memory = ConversationSummaryMemory(
+    llm=llm,
+    memory_key="history",
+    return_messages=True
+)
 
 prompt = ChatPromptTemplate.from_messages(
 	[
@@ -34,8 +39,8 @@ parser = StrOutputParser()
 print("parser defined")
 
 
-chain = LLMChain(prompt = prompt , memory = memory , llm = llm , output_parser = parser)
-# chain = LLMChain(llm=llm, prompt=template, output_parser=parser)
+# chain = LLMChain(prompt = prompt , memory = memory , llm = llm , output_parser = parser)
+chain = prompt | memory | llm | parser
 
 print("chain defined")
 
@@ -44,8 +49,6 @@ response1 = chain.invoke({"text" : "explain langchain to me in basic level."})
 print(response1["text"])
 
 
-response2 = chain.invoke({"text" : "explain futher please."})
+response2 = chain.invoke({"text" : "explain langcchain futher please in basic level."})
 print(response2["text"])
-
-
 

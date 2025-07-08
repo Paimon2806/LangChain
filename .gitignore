@@ -4,6 +4,8 @@ __pycache__/
 *$py.class
 .vscode
 .idx
+gen-ai-env
+Miniconda3-latest-Linux-x86_64.sh
 
 # C extensions
 *.so
