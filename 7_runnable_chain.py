@@ -36,9 +36,41 @@ prompt = ChatPromptTemplate.from_messages([
 
 parser = StrOutputParser()
 
-chain = prompt | llm | parser 
+chain = prompt | llm | parser
 
+print("running invoke")
 response = chain.invoke({"topic": "Runnable chain in langchain"})
-print(response)
+output_filename = "runnable_chain.txt"
+with open(output_filename, "w") as f:
+    f.write(response)
+
+
+print("running stream")
+output_filename = "attention.txt"
+for chunk in chain.stream({"topic":"attention mechanism"}):
+    with open(output_filename, "r") as r:
+        file_content = r.read()
+        chuck = chunk + file_content
+    with open(output_filename, "w") as f:
+        f.write(chuck)
+
+
+
+print("running batch")
+responses = chain.batch([
+    {"topic":"transformers"},
+    {"topic":"prompt engineering"}
+])
+output_filename = "transformers.txt"
+with open(output_filename, "w") as f:
+    f.write(responses[0])
+
+output_filename = "prompt engineering.txt"
+with open(output_filename, "w") as f:
+    f.write(responses[1])
+
+
+
+
 
 
