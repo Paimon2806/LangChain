@@ -19,7 +19,7 @@ load_dotenv()
 
 
 llm = ChatGoogleGenerativeAI(
-    model="gemini-2.0-flash",
+    model="gemini-2.0-flash-lite",
     temperature=0,
     max_tokens=None,
     timeout=None,
@@ -47,12 +47,11 @@ with open(output_filename, "w") as f:
 
 print("running stream")
 output_filename = "attention.txt"
+content = ""
 for chunk in chain.stream({"topic":"attention mechanism"}):
-    with open(output_filename, "r") as r:
-        file_content = r.read()
-        chuck = chunk + file_content
-    with open(output_filename, "w") as f:
-        f.write(chuck)
+    content += chunk
+with open(output_filename, "w") as f:
+    f.write(content)
 
 
 
