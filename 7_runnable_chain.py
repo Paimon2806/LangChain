@@ -30,44 +30,53 @@ llm = ChatGoogleGenerativeAI(
 
 
 prompt = ChatPromptTemplate.from_messages([
-    ("system", "You're a helpful teacher that explains every topic in dept and easy to understand words."),
-    ("human", "Explain {topic} to me.")
+    ("system", "You are my helper that helps me prepare for interview. I will ask you interview questions and you answer them how I am supposed to answer them."),
+    ("human", "{topic} to me.")
 ])
 
 parser = StrOutputParser()
 
 chain = prompt | llm | parser
+#
+# print("running invoke")
+# response = chain.invoke({"topic": "What is the role of an activation function? Name a few common ones and their use cases."})
+# output_filename = "text/activation_function.txt"
+# with open(output_filename, "w") as f:
+#     f.write(response)
 
-print("running invoke")
-response = chain.invoke({"topic": "Runnable chain in langchain"})
-output_filename = "runnable_chain.txt"
-with open(output_filename, "w") as f:
-    f.write(response)
 
-
-print("running stream")
-output_filename = "attention.txt"
-content = ""
-for chunk in chain.stream({"topic":"attention mechanism"}):
-    content += chunk
-with open(output_filename, "w") as f:
-    f.write(content)
+# print("running stream")
+# output_filename = "attention.txt"
+# content = ""
+# for chunk in chain.stream({"topic":"attention mechanism"}):
+#     content += chunk
+# with open(output_filename, "w") as f:
+#     f.write(content)
 
 
 
 print("running batch")
 responses = chain.batch([
-    {"topic":"transformers"},
-    {"topic":"prompt engineering"}
+    {"topic":"You've mentioned proficiency in Python and popular ML libraries. Can you explain the typical use cases for NumPy, Pandas, and Scikit-learn in a machine learning workflow?"},
+    {"topic":"Describe a scenario where you would use groupby() and pivot_table() in Pandas."},
+    {"topic":"What's the difference between a list and a tuple in Python? When would you use one over the other?"},
+    {"topic":"Explain what a dictionary is in Python and its common applications."}
 ])
-output_filename = "transformers.txt"
-with open(output_filename, "w") as f:
+output_filename = "text/libraries.txt"
+with open(output_filename, "w", encoding="utf-8") as f:
     f.write(responses[0])
 
-output_filename = "prompt engineering.txt"
-with open(output_filename, "w") as f:
+output_filename = "text/pandas.txt"
+with open(output_filename, "w", encoding="utf-8") as f:
     f.write(responses[1])
 
+output_filename = "text/list_vs_tuple.txt"
+with open(output_filename, "w", encoding="utf-8") as f:
+    f.write(responses[2])
+
+output_filename = "text/dictionary.txt"
+with open(output_filename, "w" , encoding="utf-8") as f:
+    f.write(responses[3])
 
 
 

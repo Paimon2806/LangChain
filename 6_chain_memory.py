@@ -39,8 +39,8 @@ parser = StrOutputParser()
 print("parser defined")
 
 
-# chain = LLMChain(prompt = prompt , memory = memory , llm = llm , output_parser = parser)
-chain = prompt | memory | llm | parser
+chain = LLMChain(prompt = prompt , memory = memory , llm = llm , output_parser = parser)
+# chain = prompt | memory | llm | parser
 
 print("chain defined")
 
@@ -49,6 +49,6 @@ response1 = chain.invoke({"text" : "explain langchain to me in basic level."})
 print(response1["text"])
 
 
-response2 = chain.invoke({"text" : "explain langcchain futher please in basic level."})
+response2 = chain.invoke({"text" : "explain langchain further please in basic level."})
 print(response2["text"])
 
